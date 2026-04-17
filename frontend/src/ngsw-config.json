@@ -1,0 +1,65 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "!/assets/.gitkeep"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-cache",
+      "urls": [
+        "/api/**"
+      ],
+      "cacheConfig": {
+        "maxAge": "1d",
+        "maxSize": 100,
+        "strategy": "freshness"
+      }
+    },
+    {
+      "name": "spotify-api",
+      "urls": [
+        "https://api.spotify.com/**"
+      ],
+      "cacheConfig": {
+        "maxAge": "6h",
+        "maxSize": 50,
+        "strategy": "freshness"
+      }
+    },
+    {
+      "name": "google-calendar",
+      "urls": [
+        "https://www.googleapis.com/**"
+      ],
+      "cacheConfig": {
+        "maxAge": "1d",
+        "maxSize": 100,
+        "strategy": "freshness"
+      }
+    }
+  ]
+}

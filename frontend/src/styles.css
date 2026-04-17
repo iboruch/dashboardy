@@ -1,0 +1,95 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: light;
+  --page-bg: #eef3fb;
+  --text-main: #17325c;
+  --text-soft: #7082a2;
+  --text-muted: #90a0ba;
+  --surface-page-top: #f8fbff;
+  --surface-page-bottom: #eef3fb;
+  --surface-card: rgba(255, 255, 255, 0.92);
+  --surface-soft: #fbfcff;
+  --surface-soft-top: #f7fbff;
+  --surface-soft-bottom: #eef4fb;
+  --border-soft: rgba(102, 126, 173, 0.12);
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: var(--page-bg);
+  color: var(--text-main);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+body.dark-theme {
+  color-scheme: dark;
+  --page-bg: #111b2f;
+  --text-main: #e6eefc;
+  --text-soft: #a4b6d6;
+  --text-muted: #8092b3;
+  --surface-page-top: #0d1524;
+  --surface-page-bottom: #111b2f;
+  --surface-card: rgba(17, 27, 47, 0.88);
+  --surface-soft: rgba(255, 255, 255, 0.04);
+  --surface-soft-top: rgba(255, 255, 255, 0.04);
+  --surface-soft-bottom: rgba(255, 255, 255, 0.03);
+  --border-soft: rgba(128, 154, 211, 0.14);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+
+.cdk-overlay-container {
+  font-family: inherit;
+}
+
+body.dark-theme .cdk-overlay-container .mat-mdc-menu-panel {
+  background: #13203a;
+  color: #e6eefc;
+}
+
+body.dark-theme .cdk-overlay-container .mat-mdc-menu-item,
+body.dark-theme .cdk-overlay-container .mat-mdc-menu-item .mat-mdc-menu-item-text,
+body.dark-theme .cdk-overlay-container .mat-mdc-menu-item .mdc-list-item__primary-text,
+body.dark-theme .cdk-overlay-container .mat-mdc-menu-content {
+  color: #e6eefc !important;
+}
+
+body.dark-theme .cdk-overlay-container .mat-mdc-menu-item[disabled] {
+  color: #b4c3de !important;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}

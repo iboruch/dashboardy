@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - FRONTEND_URL=http://localhost:4200
+    volumes:
+      - ./backend:/app
+    env_file:
+      - backend/.env
+    command: python main.py
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm start
+
+  # Optional: Redis for caching
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - "6379:6379"
+
+  # Optional: PostgreSQL for production database
+  # db:
+  #   image: postgres:15
+  #   environment:
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: dashboardy
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+# volumes:
+#   postgres_data:
