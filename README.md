@@ -27,11 +27,11 @@ This is a full-stack portfolio project, not a production SaaS product. The repos
 
 ```mermaid
 flowchart LR
-  Browser[Angular PWA] --> API[FastAPI API]
-  Browser --> LocalStorage[Local demo/session storage]
-  API --> Auth[OAuth helper service]
-  API --> Providers[Google / Spotify / Microsoft / Linear APIs]
-  API --> Health[/api/health]
+  Browser["Angular PWA"] --> API["FastAPI API"]
+  Browser --> LocalStorage["Local demo/session storage"]
+  API --> Auth["OAuth helper service"]
+  API --> Providers["Google / Spotify / Microsoft / Linear APIs"]
+  API --> Health["/api/health"]
 ```
 
 Repository layout:
@@ -60,14 +60,14 @@ The frontend currently defaults to demo mode through `frontend/src/environments/
 
 ## Screenshots
 
-Screenshots are expected under `docs/screenshots/`.
+Screenshots should be stored under `docs/screenshots/` before sharing the repository publicly.
 
-Planned local paths:
-
-- `docs/screenshots/dashboard-light.png`
-- `docs/screenshots/dashboard-dark.png`
-- `docs/screenshots/settings.png`
-- `docs/screenshots/mobile.png`
+| View | Local path | Status |
+| --- | --- | --- |
+| Dashboard, light theme | `docs/screenshots/dashboard-light.png` | To add |
+| Dashboard, dark theme | `docs/screenshots/dashboard-dark.png` | To add |
+| Settings and demo mode | `docs/screenshots/settings.png` | To add |
+| Mobile layout | `docs/screenshots/mobile.png` | To add |
 
 See [docs/screenshots/README.md](./docs/screenshots/README.md) for capture notes. External placeholder image services are intentionally not used.
 
@@ -148,13 +148,16 @@ Use these callback URLs when creating local provider apps:
 
 ## What This Project Demonstrates
 
-- Angular standalone-component application structure
-- Full-stack API boundary between Angular and FastAPI
-- OAuth integration planning and provider separation
-- PWA/offline UX considerations
-- Docker-based local development
-- Transparent documentation of demo vs production concerns
-- CI that validates frontend build and backend health smoke behavior
+This project is meant to show practical full-stack judgment rather than claim production completeness:
+
+- Angular frontend structure: standalone components, Angular Material UI, service-based state boundaries, routing, theming, and responsive dashboard/settings screens.
+- FastAPI backend API design: grouped routers, typed Pydantic schemas, a health endpoint, provider-specific route boundaries, and clearer errors when credentials are missing.
+- OAuth integration architecture: separate OAuth helper service, provider callback structure, documented redirect URLs, and honest handling of unfinished token refresh/revocation work.
+- PWA/offline support: manifest and Angular service worker configuration, local demo/session storage, and UI copy that distinguishes configured offline support from full offline sync.
+- Docker-based development: Compose starts the Angular and FastAPI services together, with Dockerfiles and `.dockerignore` files kept focused on local development.
+- Safe demo mode: mock/demo sessions and sample data let reviewers run the app without secrets, while real provider credentials stay out of Git.
+- Documentation quality: README as the entry point, focused setup docs, OAuth/PWA notes, screenshot guidance, known limitations, and production considerations.
+- Maintainability and extension points: provider services, frontend data/auth/theme services, environment-based demo mode, and CI smoke checks make the project easier to extend in an interview or future iteration.
 
 ## Production Considerations
 
