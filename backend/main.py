@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import os
 from dotenv import load_dotenv
@@ -14,16 +13,14 @@ from routes import auth, calendar, spotify, linear
 # Lifespan context manager
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
-    print("🚀 Dashboardy Backend Starting...")
+    print("Dashboardy Backend starting")
     yield
-    # Shutdown
-    print("👋 Dashboardy Backend Shutting down...")
+    print("Dashboardy Backend shutting down")
 
 # Create FastAPI app
 app = FastAPI(
     title="Dashboardy API",
-    description="PWA Dashboard with OAuth integrations",
+    description="Offline-capable productivity dashboard API with demo-friendly OAuth integration structure.",
     version="1.0.0",
     lifespan=lifespan
 )
@@ -51,7 +48,19 @@ app.include_router(linear.router, prefix="/api/linear", tags=["linear"])
 # Health check endpoint
 @app.get("/api/health")
 async def health():
-    return {"status": "ok", "message": "Dashboardy Backend is running"}
+    configured_providers = {
+        "google": bool(os.getenv("GOOGLE_CLIENT_ID") and os.getenv("GOOGLE_CLIENT_SECRET")),
+        "spotify": bool(os.getenv("SPOTIFY_CLIENT_ID") and os.getenv("SPOTIFY_CLIENT_SECRET")),
+        "microsoft": bool(os.getenv("MICROSOFT_CLIENT_ID") and os.getenv("MICROSOFT_CLIENT_SECRET")),
+        "linear": bool(os.getenv("LINEAR_API_KEY")),
+    }
+
+    return {
+        "status": "ok",
+        "app": "dashboardy",
+        "mode": "demo-ready",
+        "configured_providers": configured_providers,
+    }
 
 # Root endpoint
 @app.get("/")
@@ -60,6 +69,7 @@ async def root():
         "name": "Dashboardy API",
         "version": "1.0.0",
         "docs": "/docs",
+        "health": "/api/health",
         "status": "running"
     }
 

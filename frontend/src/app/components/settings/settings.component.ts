@@ -56,9 +56,9 @@ import { ThemeService } from '../../services/theme.service';
             <div class="setting-row">
               <div>
                 <h3>Notifications</h3>
-                <p>Receive status updates and reminders from integrations.</p>
+                <p>Planned integration reminders. Not enabled in the demo build.</p>
               </div>
-              <mat-slide-toggle [(ngModel)]="notifications"></mat-slide-toggle>
+              <span class="coming-soon">Coming soon</span>
             </div>
           </mat-card-content>
         </mat-card>
@@ -76,9 +76,9 @@ import { ThemeService } from '../../services/theme.service';
             <div class="setting-row">
               <div>
                 <h3>Auto sync</h3>
-                <p>Refresh connected services automatically in the background.</p>
+                <p>Manual demo data is shown today. Background provider refresh is planned.</p>
               </div>
-              <mat-slide-toggle [(ngModel)]="autoSync"></mat-slide-toggle>
+              <span class="coming-soon">Coming soon</span>
             </div>
 
             <div class="status-tile">
@@ -91,13 +91,13 @@ import { ThemeService } from '../../services/theme.service';
             </div>
 
             <div class="button-group">
-              <button mat-flat-button color="primary" (click)="syncNow()">
+              <button mat-flat-button color="primary" disabled>
                 <mat-icon>refresh</mat-icon>
-                Sync now
+                Sync coming soon
               </button>
-              <button mat-stroked-button (click)="downloadForOffline()">
+              <button mat-stroked-button disabled>
                 <mat-icon>download</mat-icon>
-                Download offline bundle
+                Offline bundle managed by PWA
               </button>
             </div>
           </mat-card-content>
@@ -127,9 +127,9 @@ import { ThemeService } from '../../services/theme.service';
             </div>
 
             <div class="button-group">
-              <button mat-stroked-button (click)="exportData()">
+              <button mat-stroked-button disabled>
                 <mat-icon>ios_share</mat-icon>
-                Export data
+                Export coming soon
               </button>
               <button mat-stroked-button color="warn" (click)="clearCache()">
                 <mat-icon>delete</mat-icon>
@@ -342,6 +342,18 @@ import { ThemeService } from '../../services/theme.service';
       text-transform: uppercase;
     }
 
+    .coming-soon {
+      white-space: nowrap;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(123, 106, 23, 0.1);
+      color: #7b6a17;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
     .metric-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -390,6 +402,10 @@ import { ThemeService } from '../../services/theme.service';
       border-color: var(--border-soft);
     }
 
+    .button-group button:disabled {
+      opacity: 0.62;
+    }
+
     .button-group button mat-icon {
       color: inherit;
     }
@@ -418,6 +434,11 @@ import { ThemeService } from '../../services/theme.service';
     :host-context(.dark-theme) .status-badge {
       background: rgba(42, 191, 130, 0.16);
       color: #67e0ac;
+    }
+
+    :host-context(.dark-theme) .coming-soon {
+      background: rgba(255, 217, 102, 0.12);
+      color: #ffe082;
     }
 
     :host-context(.dark-theme) .section-icon {
@@ -468,8 +489,6 @@ import { ThemeService } from '../../services/theme.service';
 })
 export class SettingsComponent implements OnInit {
   darkMode = false;
-  autoSync = true;
-  notifications = true;
 
   constructor(private themeService: ThemeService) {}
 
@@ -479,18 +498,6 @@ export class SettingsComponent implements OnInit {
 
   onDarkModeChange(enabled: boolean): void {
     this.themeService.setDarkMode(enabled);
-  }
-
-  syncNow(): void {
-    console.log('Syncing data...');
-  }
-
-  downloadForOffline(): void {
-    console.log('Downloading for offline...');
-  }
-
-  exportData(): void {
-    console.log('Exporting data...');
   }
 
   clearCache(): void {

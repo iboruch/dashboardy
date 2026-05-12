@@ -1,63 +1,34 @@
-# OAuth Guide / Przewodnik OAuth
+# OAuth Guide
 
-## English
+Dashboardy includes provider integration structure, but demo mode is the default. Do not commit real provider credentials.
 
-### Supported providers
+## Current Provider Status
 
-- Google
-- Spotify
-- Microsoft
-- Linear
+- Google: OAuth URL and callback exchange structure
+- Spotify: OAuth URL and callback exchange structure
+- Microsoft: OAuth URL and callback exchange structure
+- Linear: API-key route examples; full OAuth flow is not implemented yet
 
-### Local callback URLs
-
-- Google: `http://localhost:4200/auth/google/callback`
-- Spotify: `http://localhost:4200/auth/spotify/callback`
-- Microsoft: `http://localhost:4200/auth/microsoft/callback`
-- Linear: `http://localhost:4200/auth/linear/callback`
-
-### Basic flow
-
-1. frontend asks backend for auth URL
-2. user is redirected to provider
-3. provider redirects back with code
-4. backend exchanges code for token
-5. frontend uses token/session to load data
-
-### Security notes
-
-- never commit real OAuth secrets
-- use HTTPS in production
-- exact redirect URI matching matters
-- long-lived secrets should not live in frontend code
-
-## Polski
-
-### Wspierani providerzy
-
-- Google
-- Spotify
-- Microsoft
-- Linear
-
-### Callback URL-e lokalne
+## Local Callback URLs
 
 - Google: `http://localhost:4200/auth/google/callback`
 - Spotify: `http://localhost:4200/auth/spotify/callback`
 - Microsoft: `http://localhost:4200/auth/microsoft/callback`
-- Linear: `http://localhost:4200/auth/linear/callback`
+- Linear: `http://localhost:4200/auth/linear/callback` planned
 
-### Podstawowy flow
+## Basic Flow
 
-1. frontend pyta backend o auth URL
-2. użytkownik trafia do providera
-3. provider odsyła z kodem
-4. backend wymienia kod na token
-5. frontend używa tokenu/sesji do załadowania danych
+1. Frontend asks FastAPI for a provider authorization URL.
+2. User authorizes the provider.
+3. Provider redirects to the frontend callback URL with a code.
+4. Frontend passes the code to the backend.
+5. Backend exchanges the code for provider tokens.
+6. App uses tokens to request provider data.
 
-### Uwagi bezpieczeństwa
+## Security Notes
 
-- nie commituj prawdziwych sekretów OAuth
-- w produkcji używaj HTTPS
-- redirect URI musi zgadzać się dokładnie
-- długowieczne sekrety nie powinny żyć we frontendzie
+- Use HTTPS outside local development.
+- Persist and validate OAuth state values server-side.
+- Store tokens server-side with encryption at rest.
+- Implement refresh-token rotation and provider disconnect/revocation.
+- Keep long-lived secrets out of frontend code.

@@ -50,7 +50,7 @@ import { AuthService } from '../../services/auth.service';
 
       <mat-menu #authMenu="matMenu" class="auth-menu">
         <button mat-menu-item disabled>
-          <strong>OAuth Services</strong>
+          <strong>Demo integrations</strong>
         </button>
         <mat-divider></mat-divider>
 
@@ -61,8 +61,13 @@ import { AuthService } from '../../services/auth.service';
             </span>
             <span class="service-name">{{ service | titlecase }}</span>
             <span class="status" *ngIf="isAuthenticated(service)">Connected</span>
+            <span class="status pending" *ngIf="!isAuthenticated(service)">Demo</span>
           </button>
         </div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item disabled class="menu-note">
+          Real OAuth requires backend credentials.
+        </button>
       </mat-menu>
     </mat-toolbar>
   `,
@@ -202,6 +207,15 @@ import { AuthService } from '../../services/auth.service';
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: #158f68;
+    }
+
+    .pending {
+      color: #7b6a17;
+    }
+
+    .menu-note {
+      font-size: 12px;
+      white-space: normal;
     }
 
     ::ng-deep .mat-mdc-menu-panel {

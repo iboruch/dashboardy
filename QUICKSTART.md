@@ -1,77 +1,30 @@
-# Quickstart / Szybki start
+# Quickstart
 
-## English
-
-Backend:
+Use Docker for the fastest local review:
 
 ```bash
-cd backend
-python -m venv venv
-```
-
-Windows:
-
-```powershell
-.\venv\Scripts\Activate.ps1
-```
-
-macOS/Linux:
-
-```bash
-source venv/bin/activate
-```
-
-Then:
-
-```bash
-pip install -r requirements.txt
-cp .env.example .env
-python main.py
-```
-
-Frontend:
-
-```bash
-cd frontend
-npm install
-npm start
+cp backend/.env.example backend/.env
+docker compose up --build
 ```
 
 Open:
 
-- `http://localhost:4200`
-- `http://localhost:8000/docs`
+- Frontend: `http://localhost:4200`
+- Backend docs: `http://localhost:8000/docs`
+- Health check: `http://localhost:8000/api/health`
 
-## Polski
-
-Backend:
+Manual setup:
 
 ```bash
 cd backend
-python -m venv venv
-```
-
-Windows:
-
-```powershell
-.\venv\Scripts\Activate.ps1
-```
-
-macOS/Linux:
-
-```bash
+python3 -m venv venv
 source venv/bin/activate
-```
-
-Następnie:
-
-```bash
 pip install -r requirements.txt
 cp .env.example .env
 python main.py
 ```
 
-Frontend:
+In a second terminal:
 
 ```bash
 cd frontend
@@ -79,7 +32,4 @@ npm install
 npm start
 ```
 
-Otwórz:
-
-- `http://localhost:4200`
-- `http://localhost:8000/docs`
+The app runs in demo mode without OAuth credentials.

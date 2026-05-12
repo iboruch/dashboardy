@@ -1,45 +1,30 @@
-# PWA Guide / Przewodnik PWA
+# PWA Guide
 
-## English
+Dashboardy includes the foundation for an installable Angular PWA.
 
-### What is included
+## Included
 
-- manifest
-- Angular service worker
-- offline asset caching
-- installable app shell
+- Web app manifest: `frontend/src/manifest.webmanifest`
+- Angular service worker config: `frontend/src/ngsw-config.json`
+- Local storage service: `frontend/src/app/services/storage.service.ts`
+- UI messaging for demo/offline-oriented behavior
 
-### Relevant files
+## Local Testing
 
-- `frontend/src/manifest.webmanifest`
-- `frontend/src/ngsw-config.json`
-- `frontend/src/app/services/storage.service.ts`
+Build the production frontend and inspect it with browser DevTools:
 
-### Local testing ideas
+```bash
+cd frontend
+npm run build:prod
+```
 
-- run the app
-- open DevTools
-- inspect Application -> Service Workers
-- simulate offline mode
+Then review:
 
-## Polski
+- Application -> Manifest
+- Application -> Service Workers
+- Cache Storage
+- Offline simulation
 
-### Co jest w środku
+## Limitations
 
-- manifest
-- Angular service worker
-- cache assetów offline
-- installowalny app shell
-
-### Ważne pliki
-
-- `frontend/src/manifest.webmanifest`
-- `frontend/src/ngsw-config.json`
-- `frontend/src/app/services/storage.service.ts`
-
-### Pomysły na test lokalny
-
-- uruchom aplikację
-- otwórz DevTools
-- sprawdź Application -> Service Workers
-- zasymuluj tryb offline
+The project caches the app shell and supports local demo behavior. It does not yet implement production-grade offline sync, conflict resolution, background sync queues, or durable provider data caching.

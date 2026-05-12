@@ -30,6 +30,10 @@ import { AuthService } from '../../services/auth.service';
           <p class="dashboard-copy">
             Your calendar, music and Linear work in one cleaner control panel.
           </p>
+          <div class="demo-banner">
+            <mat-icon>science</mat-icon>
+            <span>Demo mode: sample calendar and task data are shown until OAuth credentials are configured.</span>
+          </div>
         </div>
 
         <div class="dashboard-stats">
@@ -85,9 +89,9 @@ import { AuthService } from '../../services/auth.service';
               <h3>{{ currentTrack.name }}</h3>
               <p class="artist">{{ currentTrack.artist }}</p>
               <p class="album">{{ currentTrack.album }}</p>
-              <button mat-flat-button color="primary" class="play-btn">
+              <button mat-flat-button color="primary" class="play-btn" disabled>
                 <mat-icon>play_circle</mat-icon>
-                Open playback
+                Playback controls coming soon
               </button>
             </div>
             <div *ngIf="!currentTrack && isSpotifyAuth" class="empty-state">
@@ -174,6 +178,28 @@ import { AuthService } from '../../services/auth.service';
       margin: 14px 0 0;
       font-size: 16px;
       color: rgba(255, 255, 255, 0.82);
+    }
+
+    .demo-banner {
+      width: fit-content;
+      max-width: 620px;
+      margin-top: 18px;
+      padding: 10px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .demo-banner mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+      color: inherit;
     }
 
     .dashboard-stats {
@@ -467,6 +493,12 @@ import { AuthService } from '../../services/auth.service';
       .dashboard-hero {
         padding: 24px 20px;
         border-radius: 22px;
+      }
+
+      .demo-banner {
+        width: 100%;
+        align-items: flex-start;
+        border-radius: 16px;
       }
 
       .cards-grid {

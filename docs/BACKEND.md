@@ -1,97 +1,39 @@
-# Backend Guide / Przewodnik po backendzie
+# Backend Guide
 
-## English
+The backend is a FastAPI app that exposes health, auth, calendar, Spotify, and Linear route groups.
 
-### Tech
-
-- FastAPI
-- Uvicorn
-- Python dotenv
-- OAuth provider integrations
-
-### Run locally
+## Run
 
 ```bash
 cd backend
-python -m venv venv
-```
-
-Windows:
-
-```powershell
-.\venv\Scripts\Activate.ps1
-```
-
-macOS/Linux:
-
-```bash
+python3 -m venv venv
 source venv/bin/activate
-```
-
-Then:
-
-```bash
 pip install -r requirements.txt
 cp .env.example .env
 python main.py
 ```
 
-### Important endpoints
+## Important Endpoints
 
-- `/api/health`
-- `/docs`
-- `/api/auth/url/{service}`
+- `GET /api/health` - service health and provider configuration summary
+- `GET /docs` - Swagger/OpenAPI documentation
+- `GET /api/auth/url/{service}` - OAuth authorization URL for configured providers
+- `POST /api/auth/callback` - OAuth callback exchange
+- `GET /api/calendar/{provider}/events` - calendar examples requiring tokens
+- `GET /api/spotify/currently-playing` - Spotify example requiring a token
+- `GET /api/linear/issues` - Linear example requiring an API key
 
-### Notes
-
-- the backend can run without OAuth credentials for local boot/testing
-- real provider integrations require values in `backend/.env`
-- production should move sensitive token handling away from the frontend
-
-## Polski
-
-### Technologia
-
-- FastAPI
-- Uvicorn
-- Python dotenv
-- integracje z providerami OAuth
-
-### Uruchomienie lokalne
+## Tests
 
 ```bash
 cd backend
-python -m venv venv
+pytest
 ```
 
-Windows:
+The current test suite includes a health endpoint smoke test so CI can verify the FastAPI app imports and responds.
 
-```powershell
-.\venv\Scripts\Activate.ps1
-```
+## Demo and Integration Boundaries
 
-macOS/Linux:
+The backend can boot without OAuth credentials. Real provider endpoints return clearer configuration errors when required environment variables are missing.
 
-```bash
-source venv/bin/activate
-```
-
-Następnie:
-
-```bash
-pip install -r requirements.txt
-cp .env.example .env
-python main.py
-```
-
-### Ważne endpointy
-
-- `/api/health`
-- `/docs`
-- `/api/auth/url/{service}`
-
-### Uwagi
-
-- backend może działać bez credentials OAuth do lokalnego bootowania/testów
-- prawdziwe integracje wymagają wartości w `backend/.env`
-- w produkcji wrażliwe tokeny powinny być obsługiwane bardziej po stronie backendu
+Production work should add persistent user/session storage, server-side token encryption, refresh-token handling, provider disconnect/revocation, request logging, and broader route tests.

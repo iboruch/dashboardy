@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   backend:
     build: ./backend
@@ -12,7 +10,7 @@ services:
       - ./backend:/app
     env_file:
       - backend/.env
-    command: python main.py
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   frontend:
     build: ./frontend
@@ -22,6 +20,8 @@ services:
       - ./frontend:/app
       - /app/node_modules
     command: npm start
+    depends_on:
+      - backend
 
   # Optional: Redis for caching
   # redis:

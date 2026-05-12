@@ -1,15 +1,8 @@
-# Frontend Guide / Przewodnik po frontendzie
+# Frontend Guide
 
-## English
+The frontend is an Angular 17 application built with standalone components and Angular Material.
 
-### Tech
-
-- Angular 17
-- standalone components
-- Angular Material
-- PWA/service worker support
-
-### Run locally
+## Run
 
 ```bash
 cd frontend
@@ -17,57 +10,29 @@ npm install
 npm start
 ```
 
-### Main areas
-
-- `src/app/components/` UI components
-- `src/app/services/` auth/data/storage services
-- `src/styles.css` global styles
-- `src/ngsw-config.json` service worker cache rules
-
-### Build
+## Build
 
 ```bash
 npm run build
 ```
 
-### Notes
+## Main Areas
 
-- Angular Material icons need the font links from `src/index.html`
-- some dashboard data is still demo content
-- component style budgets may warn during build, but the app still compiles
+- `src/app/components/dashboard/` - dashboard cards, demo messaging, empty states
+- `src/app/components/settings/` - theme, offline, and data maintenance controls
+- `src/app/components/navbar/` - app shell navigation and provider menu
+- `src/app/services/` - auth, data, storage, and theme services
+- `src/styles.css` - global theme tokens
+- `src/ngsw-config.json` - Angular service worker cache rules
 
-## Polski
+## Demo Behavior
 
-### Technologia
+The frontend defaults to demo mode in `AuthService`. Provider actions create local demo tokens so the UI can show connected states without real OAuth credentials.
 
-- Angular 17
-- standalone components
-- Angular Material
-- wsparcie PWA/service workera
+Actions that are not wired yet should be disabled or labeled as coming soon. Avoid adding buttons that only log to the console.
 
-### Uruchomienie lokalne
+## Build Budgets
 
-```bash
-cd frontend
-npm install
-npm start
-```
+The production build uses Angular budgets in `angular.json`. The warning thresholds are calibrated against the current Angular Material demo build while keeping error limits close enough to catch accidental bundle growth.
 
-### Główne obszary
-
-- `src/app/components/` komponenty UI
-- `src/app/services/` serwisy auth/data/storage
-- `src/styles.css` style globalne
-- `src/ngsw-config.json` reguły cache service workera
-
-### Build
-
-```bash
-npm run build
-```
-
-### Uwagi
-
-- ikony Angular Material wymagają fontów podpiętych w `src/index.html`
-- część danych na dashboardzie nadal jest demo contentem
-- podczas buildu mogą pojawiać się warningi budgetów stylów, ale aplikacja się kompiluje
+Font inlining is disabled for production optimization so CI and local builds do not depend on fetching Google Fonts during `ng build`.

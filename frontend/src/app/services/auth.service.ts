@@ -24,7 +24,7 @@ export interface User {
 export class AuthService {
   private apiUrl = environment.apiUrl;
   private tokens$ = new BehaviorSubject<Map<string, AuthToken>>(this.loadTokens());
-  private demoMode = true; // Enable demo mode
+  private demoMode = true;
 
   constructor(private http: HttpClient) {
     this.loadTokens();
@@ -52,6 +52,10 @@ export class AuthService {
       return of({ auth_url: 'demo-mode' });
     }
     return this.http.get<{ auth_url: string }>(`${this.apiUrl}/auth/url/${service}`);
+  }
+
+  isDemoMode(): boolean {
+    return this.demoMode;
   }
 
   handleCallback(service: string, code: string, state?: string): Observable<AuthToken> {
