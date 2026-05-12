@@ -83,11 +83,11 @@ import { ThemeService } from '../../services/theme.service';
 
             <div class="status-tile">
               <div>
-                <span class="status-label">Offline package</span>
-                <strong>Ready</strong>
-                <p>Cached app shell and demo data are available locally.</p>
+                <span class="status-label">PWA offline support</span>
+                <strong>Configured</strong>
+                <p>Service worker caching is configured for production builds.</p>
               </div>
-              <span class="status-badge">Healthy</span>
+              <span class="status-badge">Demo</span>
             </div>
 
             <div class="button-group">
@@ -116,13 +116,13 @@ import { ThemeService } from '../../services/theme.service';
             <div class="metric-grid">
               <div class="metric-card">
                 <span>Cache size</span>
-                <strong>2.3 MB</strong>
-                <p>Current offline assets and cached payloads.</p>
+                <strong>Browser-managed</strong>
+                <p>Exact storage usage depends on the installed PWA cache.</p>
               </div>
               <div class="metric-card">
                 <span>Sync queue</span>
-                <strong>0 items</strong>
-                <p>No pending actions waiting for reconnection.</p>
+                <strong>Not implemented</strong>
+                <p>Background sync is listed on the roadmap.</p>
               </div>
             </div>
 

@@ -5,7 +5,6 @@ Dashboardy can run with Docker Compose or with separate backend/frontend process
 ## Docker
 
 ```bash
-cp backend/.env.example backend/.env
 docker compose up --build
 ```
 
@@ -13,6 +12,8 @@ Docker starts:
 
 - Angular dev server on `http://localhost:4200`
 - FastAPI on `http://localhost:8000`
+
+Create `backend/.env` from `backend/.env.example` only when configuring real OAuth provider credentials.
 
 ## Backend
 
@@ -39,8 +40,14 @@ curl http://localhost:8000/api/health
 
 ## Frontend
 
+Use Node 20 for local frontend work:
+
 ```bash
 cd frontend
+nvm use
+```
+
+```bash
 npm install
 npm start
 ```

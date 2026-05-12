@@ -3,7 +3,6 @@
 Use Docker for the fastest local review:
 
 ```bash
-cp backend/.env.example backend/.env
 docker compose up --build
 ```
 
@@ -28,6 +27,7 @@ In a second terminal:
 
 ```bash
 cd frontend
+nvm use
 npm install
 npm start
 ```

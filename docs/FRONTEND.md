@@ -6,6 +6,7 @@ The frontend is an Angular 17 application built with standalone components and A
 
 ```bash
 cd frontend
+nvm use
 npm install
 npm start
 ```
@@ -27,7 +28,7 @@ npm run build
 
 ## Demo Behavior
 
-The frontend defaults to demo mode in `AuthService`. Provider actions create local demo tokens so the UI can show connected states without real OAuth credentials.
+The frontend defaults to demo mode through `src/environments/environment*.ts`. Provider actions create local demo tokens so the UI can show connected states without real OAuth credentials.
 
 Actions that are not wired yet should be disabled or labeled as coming soon. Avoid adding buttons that only log to the console.
 

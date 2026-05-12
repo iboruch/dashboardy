@@ -24,7 +24,8 @@ export interface User {
 export class AuthService {
   private apiUrl = environment.apiUrl;
   private tokens$ = new BehaviorSubject<Map<string, AuthToken>>(this.loadTokens());
-  private demoMode = true;
+  readonly tokensChanged$ = this.tokens$.asObservable();
+  private demoMode = environment.demoMode;
 
   constructor(private http: HttpClient) {
     this.loadTokens();
@@ -42,7 +43,6 @@ export class AuthService {
 
   getAuthUrl(service: 'google' | 'spotify' | 'microsoft' | 'linear'): Observable<{ auth_url: string }> {
     if (this.demoMode) {
-      // In demo mode, create a fake token
       const demoToken: AuthToken = {
         access_token: `demo-${service}-token-${Date.now()}`,
         service: service,

@@ -56,6 +56,8 @@ Dashboardy intentionally runs without provider credentials. In demo mode:
 
 Real provider calls require credentials in `backend/.env`. Google, Spotify, and Microsoft have OAuth URL/callback structure in the backend. Linear is currently represented as an API-key integration example, not a completed OAuth flow.
 
+The frontend currently defaults to demo mode through `frontend/src/environments/environment*.ts`. Disable `demoMode` only after backend credentials and callback URLs are configured.
+
 ## Screenshots
 
 Screenshots are expected under `docs/screenshots/`.
@@ -74,7 +76,6 @@ See [docs/screenshots/README.md](./docs/screenshots/README.md) for capture notes
 ```bash
 git clone https://github.com/iboruch/dashboardy.git
 cd dashboardy
-cp backend/.env.example backend/.env
 docker compose up --build
 ```
 
@@ -85,7 +86,14 @@ Open:
 - Swagger docs: `http://localhost:8000/docs`
 - Health check: `http://localhost:8000/api/health`
 
+Copy `backend/.env.example` to `backend/.env` only when you want to configure real provider credentials.
+
 ## Manual Local Setup
+
+Prerequisites:
+
+- Node.js 20 recommended for the Angular frontend (`cd frontend && nvm use`)
+- Python 3.11 recommended for the FastAPI backend
 
 Backend:
 
@@ -102,6 +110,7 @@ Frontend in a second terminal:
 
 ```bash
 cd frontend
+nvm use
 npm install
 npm start
 ```

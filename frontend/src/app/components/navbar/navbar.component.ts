@@ -50,23 +50,28 @@ import { AuthService } from '../../services/auth.service';
 
       <mat-menu #authMenu="matMenu" class="auth-menu">
         <button mat-menu-item disabled>
-          <strong>Demo integrations</strong>
+          <strong>{{ isDemoMode() ? 'Demo integrations' : 'OAuth integrations' }}</strong>
         </button>
         <mat-divider></mat-divider>
 
         <div *ngFor="let service of services" class="service-item">
-          <button mat-menu-item (click)="authenticate(service)" class="service-login">
+          <button mat-menu-item (click)="toggleProvider(service)" class="service-login">
             <span class="service-badge" [ngClass]="'service-badge--' + service">
               {{ getServiceBadge(service) }}
             </span>
             <span class="service-name">{{ service | titlecase }}</span>
-            <span class="status" *ngIf="isAuthenticated(service)">Connected</span>
-            <span class="status pending" *ngIf="!isAuthenticated(service)">Demo</span>
+            <span class="status" *ngIf="isAuthenticated(service)">Disconnect</span>
+            <span class="status pending" *ngIf="!isAuthenticated(service)">
+              {{ isDemoMode() ? 'Use demo' : 'Connect' }}
+            </span>
           </button>
         </div>
         <mat-divider></mat-divider>
+        <button *ngIf="menuFeedback" mat-menu-item disabled class="menu-feedback">
+          {{ menuFeedback }}
+        </button>
         <button mat-menu-item disabled class="menu-note">
-          Real OAuth requires backend credentials.
+          Demo mode stores local sample sessions. Real OAuth requires backend credentials and demo mode disabled.
         </button>
       </mat-menu>
     </mat-toolbar>
@@ -218,6 +223,12 @@ import { AuthService } from '../../services/auth.service';
       white-space: normal;
     }
 
+    .menu-feedback {
+      font-size: 12px;
+      color: #3151b4 !important;
+      white-space: normal;
+    }
+
     ::ng-deep .mat-mdc-menu-panel {
       border-radius: 16px;
       box-shadow: 0 28px 60px rgba(20, 44, 86, 0.16);
@@ -289,6 +300,7 @@ import { AuthService } from '../../services/auth.service';
 export class NavbarComponent implements OnInit {
   services = ['google', 'spotify', 'microsoft', 'linear'];
   isOffline = false;
+  menuFeedback = '';
 
   constructor(
     private authService: AuthService,
@@ -317,12 +329,26 @@ export class NavbarComponent implements OnInit {
     return this.authService.isAuthenticated(service as any);
   }
 
-  authenticate(service: string): void {
+  isDemoMode(): boolean {
+    return this.authService.isDemoMode();
+  }
+
+  toggleProvider(service: string): void {
+    if (this.isAuthenticated(service)) {
+      this.authService.logout(service);
+      this.menuFeedback = `${this.toTitle(service)} demo session removed.`;
+      return;
+    }
+
     this.authService.getAuthUrl(service as any).subscribe(
       () => {
-        console.log(`Demo login to ${service}`);
+        this.menuFeedback = this.isDemoMode()
+          ? `${this.toTitle(service)} demo session enabled.`
+          : `Opening ${this.toTitle(service)} authorization.`;
       },
-      error => console.error('Auth error:', error)
+      () => {
+        this.menuFeedback = `${this.toTitle(service)} could not be connected. Check backend credentials.`;
+      }
     );
   }
 
@@ -339,5 +365,9 @@ export class NavbarComponent implements OnInit {
   getServiceColor(service: string): string {
     if (this.isAuthenticated(service)) return 'accent';
     return '';
+  }
+
+  private toTitle(value: string): string {
+    return value.charAt(0).toUpperCase() + value.slice(1);
   }
 }
